@@ -1,0 +1,10 @@
+#root {
+  width: 100%;
+  min-width: 320px;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  /* box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box; */
+}
