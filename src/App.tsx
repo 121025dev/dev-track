@@ -38,7 +38,7 @@ const Land = styled.div({
   overflow: "auto",
   borderTopLeftRadius: "50% 5%",
   borderTopRightRadius: "50% 5%",
-  backgroundImage: "url(assets/images/land.png)",
+  backgroundImage: "url(assets/images/land.jpg)",
   backgroundRepeat: "repeat-y",
   backgroundSize: "100% auto",
   transform: "translate(-50%, 50%) rotateX(35deg)",
