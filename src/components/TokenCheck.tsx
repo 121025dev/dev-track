@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Data, getData } from "../api/Data";
 import { ColorStyles } from "../styles/ColorStyles";
 import { useSearchParams } from "react-router-dom";
+import Spinner from "./Spinner";
 
 const Container = styled.div({
   display: "flex",
@@ -27,6 +28,7 @@ type Props = {
 
 function TokenCheck({ onNext }: Props) {
   const [searchParams] = useSearchParams();
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isError, setIsError] = useState<boolean>(false);
 
   useEffect(() => {
@@ -40,6 +42,7 @@ function TokenCheck({ onNext }: Props) {
   }, []);
 
   async function loadData(token: string) {
+    setIsLoading(true);
     try {
       const data = await getData(token);
       onNext(data);
@@ -47,19 +50,20 @@ function TokenCheck({ onNext }: Props) {
     catch(e) {
       setIsError(true);
     }
+    setIsLoading(false);
   }
 
-  if(isError) {
-    return (
-      <Container>
+  return (
+    <Container>
+      {!isLoading && isError ?
         <Notification>
           <span>링크를 다시 확인해주세요.</span>
         </Notification>
-      </Container>
-    );
-  }
-
-  return null;
+      :
+        <Spinner width={30} height={30}/>
+      }
+    </Container>
+  );
 }
 
 export default TokenCheck;
