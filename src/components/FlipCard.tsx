@@ -1,6 +1,8 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { host } from "../api/Data";
+import UpLeftArrowIcon from "../assets/icons/ic_up_left_arrow.svg?react";
+import { ColorStyles } from "../styles/ColorStyles";
 
 const Container = styled.div({
   width: "100%",
@@ -21,6 +23,14 @@ const InnerContainer = styled.div<{ $flipped: boolean }>(({ $flipped }) => ({
   cursor: "pointer"
 }));
 
+const Hint = styled.div({
+  position: "absolute",
+  display: "flex",
+  alignItems: "center",
+  right: 20,
+  transform: "translate(0, -100%)"
+});
+
 const ContentContainer = styled.div({
   position: "absolute",
   width: "100%",
@@ -34,7 +44,8 @@ const ContentContainer = styled.div({
 const FrontContainer = styled.div({
   position: "relative",
   width: "100%",
-  height: "100%"
+  height: "100%",
+  backgroundColor: ColorStyles.grayscale.black
 });
 
 const FrontImage = styled.img({
@@ -82,9 +93,10 @@ const BackContent = styled.span({
 
 type Props = {
   data: {
+    showHint: boolean,
     front: {
       title: string,
-      imageUrl: string
+      imageUrl?: string
     },
     back: {
       title: string,
@@ -95,15 +107,23 @@ type Props = {
 };
 
 const FlipCard = ({ data }: Props) => {
-  const { front, back, ratio = 1 } = data;
+  const { showHint, front, back, ratio = 1 } = data;
   const [flipped, setFlipped] = useState(false);
 
   return (
     <Container style={{ aspectRatio: ratio }} onClick={() => setFlipped((prev) => !prev)}>
+      {showHint &&
+        <Hint>
+          <UpLeftArrowIcon style={{ transform: "translateY(5px) rotate(-90deg)" }}/>
+          <span>눌러보세요!</span>
+        </Hint>
+      }
       <InnerContainer $flipped={flipped}>
         <ContentContainer>
           <FrontContainer>
-            <FrontImage src={host + front.imageUrl}/>
+            {front.imageUrl &&
+              <FrontImage src={host + front.imageUrl}/>
+            }
             <FrontTitle>{front.title}</FrontTitle>
           </FrontContainer>
         </ContentContainer>

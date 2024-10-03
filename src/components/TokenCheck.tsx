@@ -9,7 +9,6 @@ const Container = styled.div({
   justifyContent: "center",
   alignItems: "center",
   width: "100%",
-  maxWidth: 600,
   wordBreak: "keep-all"
 });
 
