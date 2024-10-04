@@ -35,6 +35,7 @@ function TokenCheck({ onNext }: Props) {
     const token = searchParams.get("token");
     if(token === null) {
       setIsError(true);
+      setIsLoading(false);
     }
     else {
       loadData(token);
@@ -55,7 +56,7 @@ function TokenCheck({ onNext }: Props) {
 
   return (
     <Container>
-      {!isLoading && isError ?
+      {(!isLoading && isError) ?
         <Notification>
           <span>링크를 다시 확인해주세요.</span>
         </Notification>

@@ -83,10 +83,10 @@ function App() {
     else {
       const y = event.touches[0].clientY;
       if(y - touchY > 0) {
-        changeIndex(index - 1);
+        changeIndex(index + 1);
       }
       else if(y - touchY < 0) {
-        changeIndex(index + 1);
+        changeIndex(index - 1);
       }
       setTouchY(y);
     }
